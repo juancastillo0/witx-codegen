@@ -15,6 +15,7 @@ mod overview;
 mod pretty_writer;
 mod rust;
 mod zig;
+mod dart;
 
 pub use crate::error::*;
 
@@ -24,6 +25,7 @@ pub use crate::error::*;
 pub enum OutputType {
     #[strum(serialize = "assemblyscript")]
     AssemblyScript,
+    Dart,
     Rust,
     Zig,
     Overview,
@@ -95,6 +97,7 @@ fn get_generator<T: Write>(module: Option<&str>, output: OutputType) -> Box<dyn 
 
     match output {
         OutputType::AssemblyScript => Box::new(assemblyscript::AssemblyScriptGenerator::new(m)),
+        OutputType::Dart => Box::new(dart::DartGenerator::new(m)),
         OutputType::Zig => Box::new(zig::ZigGenerator::new(m)),
         OutputType::Rust => Box::new(rust::RustGenerator::new(m)),
         OutputType::Overview => Box::new(overview::OverviewGenerator::new(m)),
