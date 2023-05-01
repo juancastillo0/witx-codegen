@@ -91,3 +91,20 @@ fn generate_assemblyscript() {
         generate(&c).unwrap();
     }
 }
+
+#[test]
+fn generate_dart() {
+    for s in WITX_SOURCES {
+        let mut c = Config {
+            output_type: OutputType::Dart,
+            output_file: Some(format!("{}/tests/dart/lib/{}.dart", WITX_DIR, s)),
+            ..Default::default()
+        };
+        println!("Generate {}", s);
+
+        let p = format!("{}/tests/{}", WITX_DIR, s);
+        c.witx_files = vec![p];
+
+        generate(&c).unwrap();
+    }
+}
